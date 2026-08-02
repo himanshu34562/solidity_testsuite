@@ -1,0 +1,7 @@
+logs/
+*.out
+*.err
+*.bin
+*.abi
+__pycache__/
+.DS_Store
