@@ -1,0 +1,42 @@
+{
+  "tests": [
+    { "file": "001_mapping_basic_address_to_uint.sol", "expect": "pass" },
+    {
+      "file": "002_mapping_default_value_every_key.sol",
+      "expect": "pass",
+      "notes": "every possible key already exists with the value type's zero default; there is no way to distinguish 'never set' from 'explicitly set to zero'"
+    },
+    {
+      "file": "003_mapping_no_length_expected_fail.sol",
+      "expect": "fail",
+      "notes": "mappings have no .length member -- there is no enumerable/countable notion of 'keys currently set'"
+    },
+    {
+      "file": "004_mapping_no_iteration_expected_fail.sol",
+      "expect": "fail",
+      "notes": "mappings cannot be iterated; fails for the same root cause as 003 (no .length to drive a for-loop)"
+    },
+    {
+      "file": "005_mapping_delete_resets_key_to_default.sol",
+      "expect": "pass",
+      "notes": "delete on a mapping key resets that key's value to the value type's zero default in place"
+    },
+    { "file": "006_mapping_bool_value_type.sol", "expect": "pass" },
+    {
+      "file": "007_mapping_as_function_parameter_expected_fail.sol",
+      "expect": "fail",
+      "notes": "mappings cannot be passed as function parameters at all, not even as an internal storage reference -- unlike storage struct references, which ARE allowed as parameters"
+    },
+    { "file": "008_mapping_uint_key_type.sol", "expect": "pass" },
+    {
+      "file": "009_mapping_public_getter_auto_generated.sol",
+      "expect": "pass",
+      "notes": "public mapping getter takes the key as a parameter and returns the value, unlike a public scalar's zero-argument getter"
+    },
+    {
+      "file": "010_mapping_key_type_restrictions_dynamic_expected_fail.sol",
+      "expect": "fail",
+      "notes": "mapping key types are restricted to elementary value types plus bytes/string; a dynamic array cannot be used as a key type"
+    }
+  ]
+}
