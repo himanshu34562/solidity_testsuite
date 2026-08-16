@@ -1,0 +1,32 @@
+{
+  "tests": [
+    { "file": "001_external_function_type_basic_assignment.sol", "expect": "pass" },
+    {
+      "file": "002_external_function_type_address_and_selector_members.sol",
+      "expect": "pass",
+      "notes": "confirms external function types are represented as an (address, 4-byte selector) pair, unlike internal function types' opaque code pointer"
+    },
+    {
+      "file": "003_external_function_type_as_public_parameter.sol",
+      "expect": "pass",
+      "notes": "contrast with internal_function_type/007's expected-fail: external function types ARE ABI-encodable and can appear in public/external signatures"
+    },
+    { "file": "004_external_function_type_cross_contract_call.sol", "expect": "pass" },
+    {
+      "file": "005_external_function_type_default_value_zero_initialized.sol",
+      "expect": "pass",
+      "notes": "reading .address/.selector on an unset external function type is always safe -- defaults to (address(0), 0x00000000)"
+    },
+    {
+      "file": "006_external_function_type_call_uninitialized_expected_fail_at_runtime.sol",
+      "expect": "pass",
+      "notes": "compiles successfully; calling an unset external function type is a plain low-level call to address(0), NOT a Solidity Panic code -- distinct failure mechanism from internal function types' Panic(0x51)"
+    },
+    {
+      "file": "007_external_function_type_equality_comparison.sol",
+      "expect": "pass",
+      "notes": "external function types also support == directly, comparing both address and selector components together"
+    },
+    { "file": "008_external_function_type_selector_only_extraction.sol", "expect": "pass" }
+  ]
+}
