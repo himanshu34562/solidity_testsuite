@@ -1,0 +1,29 @@
+{
+  "tests": [
+    { "file": "001_internal_function_type_basic_assignment.sol", "expect": "pass" },
+    { "file": "002_internal_function_type_as_parameter_callback.sol", "expect": "pass" },
+    {
+      "file": "003_internal_function_type_default_value_zero_initialized.sol",
+      "expect": "pass",
+      "notes": "there is no valid syntax to construct a literal zero-function-pointer for comparison; only way to observe an unset function pointer is to call it and expect Panic(0x51) (see 004)"
+    },
+    {
+      "file": "004_internal_function_type_call_uninitialized_expected_fail_at_runtime.sol",
+      "expect": "pass",
+      "notes": "compiles successfully; callUnsetFunction() reverts with Panic(0x51) only if actually called. Sixth distinct panic code confirmed in this suite, beyond 0x11/0x12/0x21/0x31/0x32."
+    },
+    {
+      "file": "005_internal_function_type_equality_comparison.sol",
+      "expect": "pass",
+      "notes": "internal function types support == and != directly -- a genuine exception to the no-equality rule confirmed for arrays/structs/bytes/string. Comparison functions must be internal, not public."
+    },
+    { "file": "006_internal_function_type_as_return_value.sol", "expect": "pass" },
+    {
+      "file": "007_internal_function_type_external_parameter_expected_fail.sol",
+      "expect": "fail",
+      "notes": "internal function types cannot appear in public/external function signatures -- no meaningful ABI representation for a raw code pointer"
+    },
+    { "file": "008_internal_function_type_array_dispatch_table.sol", "expect": "pass" },
+    { "file": "009_internal_function_type_storage_state_variable.sol", "expect": "pass" }
+  ]
+}
