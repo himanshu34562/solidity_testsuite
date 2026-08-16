@@ -1,0 +1,29 @@
+{
+  "tests": [
+    { "file": "001_memory_local_variable_basic.sol", "expect": "pass" },
+    { "file": "002_memory_new_expression_dynamic_array.sol", "expect": "pass" },
+    { "file": "003_memory_new_expression_bytes_and_string.sol", "expect": "pass" },
+    {
+      "file": "004_memory_new_string_length_constructor.sol",
+      "expect": "pass",
+      "notes": "CORRECTED: new string(n) is valid, contrary to an earlier assumption -- allocates a length-n string filled with zero bytes, same mechanism as new bytes(n). solc does not validate UTF-8 well-formedness at allocation time."
+    },
+    {
+      "file": "005_memory_multiple_allocations_independent.sol",
+      "expect": "pass",
+      "notes": "compile-level check only -- does not verify at runtime that allocations are genuinely non-overlapping"
+    },
+    {
+      "file": "006_memory_struct_containing_mapping_expected_fail.sol",
+      "expect": "fail",
+      "notes": "canonical restatement of struct_with_mapping/002's finding for this folder's context"
+    },
+    { "file": "007_memory_array_of_fixed_size_structs.sol", "expect": "pass" },
+    { "file": "008_memory_nested_dynamic_array_allocation.sol", "expect": "pass" },
+    {
+      "file": "009_memory_array_fixed_length_cannot_grow_expected_fail.sol",
+      "expect": "fail",
+      "notes": "reinforces arrays/dynamic_size/012's finding: memory arrays cannot push regardless of storage arrays of the same type supporting it"
+    }
+  ]
+}
