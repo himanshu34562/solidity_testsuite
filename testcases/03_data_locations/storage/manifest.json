@@ -1,0 +1,38 @@
+{
+  "tests": [
+    { "file": "001_storage_local_variable_requires_explicit_keyword.sol", "expect": "pass" },
+    {
+      "file": "002_storage_pointer_uninitialized_local_expected_fail.sol",
+      "expect": "fail",
+      "notes": "CORRECTED: the error only triggers when an uninitialized local storage pointer is actually USED (read/written), not merely declared -- a declared-but-unused one only gets an 'unused local variable' warning"
+    },
+    { "file": "003_storage_reference_reassignment.sol", "expect": "pass" },
+    {
+      "file": "004_storage_pointer_internal_function_return_allowed.sol",
+      "expect": "pass",
+      "notes": "internal functions can return storage pointers since internal calls never cross the ABI boundary"
+    },
+    {
+      "file": "005_storage_pointer_public_function_return_expected_fail.sol",
+      "expect": "fail",
+      "notes": "public/external functions cannot return storage pointers -- no ABI representation for a raw storage reference"
+    },
+    { "file": "006_storage_pointer_to_array_element.sol", "expect": "pass" },
+    {
+      "file": "007_storage_multiple_references_alias_same_data.sol",
+      "expect": "pass",
+      "notes": "compile-level check only -- does not verify at runtime that both references genuinely alias the same mutation"
+    },
+    { "file": "008_storage_reference_passed_to_internal_function.sol", "expect": "pass" },
+    {
+      "file": "009_storage_delete_via_reference.sol",
+      "expect": "pass",
+      "notes": "CORRECTED: delete works on a member access reached through a storage reference (ref.value), not on the reference variable itself -- see 010 for the disallowed direct form"
+    },
+    {
+      "file": "010_storage_delete_direct_reference_expected_fail.sol",
+      "expect": "fail",
+      "notes": "delete cannot be applied directly to a storage pointer variable -- ambiguous whether it should delete the underlying data or unset the pointer"
+    }
+  ]
+}
