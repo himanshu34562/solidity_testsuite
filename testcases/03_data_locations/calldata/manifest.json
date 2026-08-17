@@ -1,0 +1,30 @@
+{
+  "tests": [
+    { "file": "001_calldata_parameter_basic.sol", "expect": "pass" },
+    {
+      "file": "002_calldata_read_only_mutation_expected_fail.sol",
+      "expect": "fail",
+      "notes": "calldata is fundamentally read-only; writing through a calldata array element is rejected"
+    },
+    {
+      "file": "003_calldata_valid_on_public_functions.sol",
+      "expect": "pass",
+      "notes": "CORRECTED: calldata is legal on public functions too, not external-only -- this restriction was lifted in solc 0.6.9"
+    },
+    {
+      "file": "004_calldata_valid_on_internal_functions.sol",
+      "expect": "pass",
+      "notes": "CORRECTED (twice): calldata is also legal on internal functions -- no error or warning from solc 0.8.20. The actual scope of any remaining visibility restriction (if any -- possibly private only) is not yet confirmed in this suite."
+    },
+    { "file": "005_calldata_struct_parameter.sol", "expect": "pass" },
+    {
+      "file": "006_calldata_struct_field_mutation_expected_fail.sol",
+      "expect": "fail",
+      "notes": "read-only restriction confirmed to apply uniformly to struct field mutation, not just array element mutation"
+    },
+    { "file": "007_calldata_to_memory_copy_allowed.sol", "expect": "pass" },
+    { "file": "008_calldata_nested_array_parameter.sol", "expect": "pass" },
+    { "file": "009_calldata_string_parameter.sol", "expect": "pass" },
+    { "file": "010_calldata_local_variable_from_parameter.sol", "expect": "pass" }
+  ]
+}
