@@ -1,0 +1,17 @@
+{
+  "tests": [
+    { "file": "001_mit_license.sol", "expect": "pass" },
+    { "file": "002_gpl3_license.sol", "expect": "pass" },
+    { "file": "003_apache2_license.sol", "expect": "pass" },
+    { "file": "004_unlicensed.sol", "expect": "pass" },
+    { "file": "005_missing_spdx.sol", "expect": "pass", "notes": "solc warns (SPDX not provided) but does not error" },
+    { "file": "006_dual_license_or.sol", "expect": "pass" },
+    { "file": "007_dual_license_and.sol", "expect": "pass" },
+    { "file": "008_spdx_below_pragma.sol", "expect": "pass" },
+    {
+      "file": "009_duplicate_spdx_expected_fail.sol",
+      "expect": "fail",
+      "notes": "duplicate SPDX identifiers in one file are a hard compile error, not a warning"
+    }
+  ]
+}

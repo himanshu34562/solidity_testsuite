@@ -1,0 +1,24 @@
+{
+  "tests": [
+    { "file": "001_struct_basic_declaration.sol", "expect": "pass" },
+    { "file": "002_struct_named_field_construction.sol", "expect": "pass" },
+    { "file": "003_struct_positional_construction.sol", "expect": "pass" },
+    {
+      "file": "004_struct_field_reordering_expected_fail.sol",
+      "expect": "fail",
+      "notes": "named-field construction still requires ALL fields to be present"
+    },
+    { "file": "005_struct_default_value.sol", "expect": "pass" },
+    { "file": "006_struct_field_access_and_mutation.sol", "expect": "pass" },
+    { "file": "007_struct_as_memory_local_variable.sol", "expect": "pass" },
+    { "file": "008_struct_as_function_parameter_memory.sol", "expect": "pass" },
+    { "file": "009_struct_memory_assignment_copies_not_references.sol", "expect": "pass" },
+    { "file": "010_struct_storage_reference_aliases.sol", "expect": "pass" },
+    {
+      "file": "011_struct_comparison_expected_fail.sol",
+      "expect": "fail",
+      "notes": "no built-in == operator for structs"
+    },
+    { "file": "012_struct_delete_resets_all_fields.sol", "expect": "pass" }
+  ]
+}

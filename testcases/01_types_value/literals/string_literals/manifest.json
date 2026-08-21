@@ -1,0 +1,22 @@
+{
+  "tests": [
+    { "file": "001_string_literal_basic.sol", "expect": "pass" },
+    { "file": "002_string_literal_empty.sol", "expect": "pass" },
+    { "file": "003_string_literal_escape_sequences.sol", "expect": "pass" },
+    { "file": "004_string_literal_concatenation_via_bytes_concat.sol", "expect": "pass" },
+    { "file": "005_string_to_bytes_conversion.sol", "expect": "pass" },
+    { "file": "006_string_length_and_byte_length_distinction.sol", "expect": "pass" },
+    {
+      "file": "007_string_direct_length_expected_fail.sol",
+      "expect": "fail",
+      "notes": "string has no direct .length member"
+    },
+    { "file": "008_string_default_value.sol", "expect": "pass" },
+    { "file": "009_string_comparison_via_hash.sol", "expect": "pass" },
+    {
+      "file": "010_string_direct_equality_expected_fail.sol",
+      "expect": "fail",
+      "notes": "string has no built-in == operator"
+    }
+  ]
+}

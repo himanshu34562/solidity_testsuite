@@ -1,0 +1,13 @@
+{
+  "tests": [
+    { "file": "001_hex_string_literal_basic.sol", "expect": "pass" },
+    {
+      "file": "002_hex_string_literal_to_bytesN.sol",
+      "expect": "pass",
+      "notes": "hex string literals right-pad when shorter than the target width, same as string literals"
+    },
+    { "file": "003_hex_string_literal_exact_width_bytesN.sol", "expect": "pass" },
+    { "file": "004_hex_numeric_vs_hex_string_type_distinction.sol", "expect": "pass" },
+    { "file": "005_hex_string_literal_empty.sol", "expect": "pass" }
+  ]
+}

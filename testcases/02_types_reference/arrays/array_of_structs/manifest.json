@@ -1,0 +1,16 @@
+{
+  "tests": [
+    { "file": "001_dynamic_array_of_structs_basic.sol", "expect": "pass" },
+    { "file": "002_fixed_array_of_structs.sol", "expect": "pass" },
+    { "file": "003_array_of_structs_default_value.sol", "expect": "pass" },
+    {
+      "file": "004_array_of_structs_with_dynamic_field.sol",
+      "expect": "pass",
+      "notes": "matches the exact scenario used in docs/bitcode-reference.md's shape-encoding example -- likely a good Tier 2 metadata test candidate later"
+    },
+    { "file": "005_array_of_structs_memory_parameter.sol", "expect": "pass" },
+    { "file": "006_array_of_structs_push_full_struct_literal.sol", "expect": "pass" },
+    { "file": "007_array_of_structs_storage_reference_mutation.sol", "expect": "pass" },
+    { "file": "008_array_of_structs_delete_element.sol", "expect": "pass" }
+  ]
+}

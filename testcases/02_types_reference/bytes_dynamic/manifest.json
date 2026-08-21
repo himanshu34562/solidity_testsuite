@@ -1,0 +1,30 @@
+{
+  "tests": [
+    { "file": "001_bytes_state_variable_storage.sol", "expect": "pass" },
+    { "file": "002_bytes_memory_parameter.sol", "expect": "pass" },
+    { "file": "003_bytes_calldata_parameter.sol", "expect": "pass" },
+    { "file": "004_bytes_default_value.sol", "expect": "pass" },
+    { "file": "005_bytes_length_direct.sol", "expect": "pass" },
+    { "file": "006_bytes_indexing_read.sol", "expect": "pass" },
+    { "file": "007_bytes_indexing_write_storage.sol", "expect": "pass" },
+    {
+      "file": "008_bytes_equality_direct.sol",
+      "expect": "pass",
+      "notes": "uses keccak256 hash comparison workaround, not a direct == operator"
+    },
+    {
+      "file": "009_bytes_direct_equality_expected_fail.sol",
+      "expect": "fail",
+      "notes": "bytes has no native == despite supporting .length and indexing"
+    },
+    { "file": "010_bytes_concat_builtin.sol", "expect": "pass" },
+    { "file": "011_bytes_push_pop.sol", "expect": "pass" },
+    { "file": "012_bytes_slice_via_calldata.sol", "expect": "pass" },
+    {
+      "file": "013_bytes_slice_memory_expected_fail.sol",
+      "expect": "fail",
+      "notes": "slicing syntax is calldata-only"
+    },
+    { "file": "014_bytes_string_conversion.sol", "expect": "pass" }
+  ]
+}

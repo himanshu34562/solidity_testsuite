@@ -1,0 +1,16 @@
+{
+  "tests": [
+    { "file": "001_struct_with_fixed_array_field.sol", "expect": "pass" },
+    { "file": "002_struct_with_dynamic_array_field.sol", "expect": "pass" },
+    {
+      "file": "003_struct_with_dynamic_array_memory_copy_allowed.sol",
+      "expect": "pass",
+      "notes": "confirms storage-only restriction is specific to mappings, not any unbounded-size field"
+    },
+    { "file": "004_array_of_structs_each_containing_array.sol", "expect": "pass" },
+    { "file": "005_struct_with_multiple_array_fields.sol", "expect": "pass" },
+    { "file": "006_struct_with_fixed_array_of_structs_field.sol", "expect": "pass" },
+    { "file": "007_struct_array_field_default_value.sol", "expect": "pass" },
+    { "file": "008_struct_memory_copy_includes_fixed_array_deeply.sol", "expect": "pass" }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "tests": [
+    { "file": "001_caret_version.sol", "expect": "pass" },
+    { "file": "002_exact_version.sol", "expect": "pass" },
+    { "file": "003_range_version.sol", "expect": "pass" },
+    { "file": "004_greater_equal_version.sol", "expect": "pass" },
+    { "file": "005_combined_range_and.sol", "expect": "pass" },
+    {
+      "file": "006_tilde_version.sol",
+      "expect": "pass",
+      "notes": "LIMITATION: the runner always invokes with --ignore-pragma, which rewrites this file's pragma before parsing, so pragma syntax handling itself is not meaningfully exercised through this runner. Verified separately against solc 0.8.20 directly."
+    },
+    { "file": "007_abicoder_v2_explicit.sol", "expect": "pass" },
+    { "file": "008_multiple_pragmas.sol", "expect": "pass" }
+  ]
+}

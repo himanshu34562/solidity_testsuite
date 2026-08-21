@@ -1,0 +1,21 @@
+{
+  "tests": [
+    { "file": "001_decimal_literal_basic.sol", "expect": "pass" },
+    { "file": "002_hex_integer_literal.sol", "expect": "pass" },
+    { "file": "003_underscore_digit_separators.sol", "expect": "pass" },
+    { "file": "004_scientific_notation_literal.sol", "expect": "pass" },
+    { "file": "005_integer_literal_type_inference_smallest_fit.sol", "expect": "pass" },
+    {
+      "file": "006_integer_literal_overflow_expected_fail.sol",
+      "expect": "fail",
+      "notes": "literal value out of range for the declared type is a compile-time error"
+    },
+    {
+      "file": "007_negative_literal_on_unsigned_expected_fail.sol",
+      "expect": "fail",
+      "notes": "negative literal assigned to an unsigned type is a compile-time error"
+    },
+    { "file": "008_rational_literal_exact_division.sol", "expect": "pass" },
+    { "file": "009_literal_arithmetic_constant_folding.sol", "expect": "pass" }
+  ]
+}

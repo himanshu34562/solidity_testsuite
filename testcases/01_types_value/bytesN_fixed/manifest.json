@@ -1,0 +1,22 @@
+{
+  "tests": [
+    { "file": "001_bytes1_basic.sol", "expect": "pass" },
+    { "file": "002_bytes4_basic.sol", "expect": "pass" },
+    { "file": "003_bytes8_basic.sol", "expect": "pass" },
+    { "file": "004_bytes16_basic.sol", "expect": "pass" },
+    { "file": "005_bytes32_basic.sol", "expect": "pass" },
+    { "file": "006_bytesN_default_value.sol", "expect": "pass" },
+    {
+      "file": "007_bytesN_right_padding.sol",
+      "expect": "pass",
+      "notes": "right-padding applies to string literals, not numeric hex literals (which require exact width match)"
+    },
+    { "file": "008_bytesN_indexing.sol", "expect": "pass" },
+    { "file": "009_bytesN_length.sol", "expect": "pass", "notes": "should compile-time fold to a literal, not a runtime read" },
+    { "file": "010_bytesN_to_uint_same_width_conversion.sol", "expect": "pass" },
+    { "file": "011_bytesN_widening_narrowing_conversion.sol", "expect": "pass", "notes": "widens/narrows from the RIGHT, opposite direction from integer casts" },
+    { "file": "012_bytesN_comparison.sol", "expect": "pass" },
+    { "file": "013_bytesN_bitwise_ops.sol", "expect": "pass" },
+    { "file": "014_bytesN_shift_ops.sol", "expect": "pass" }
+  ]
+}

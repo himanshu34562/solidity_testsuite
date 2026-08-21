@@ -1,0 +1,26 @@
+{
+  "tests": [
+    { "file": "001_string_state_variable_storage.sol", "expect": "pass" },
+    { "file": "002_string_memory_parameter.sol", "expect": "pass" },
+    { "file": "003_string_calldata_parameter.sol", "expect": "pass" },
+    { "file": "004_string_memory_local_variable.sol", "expect": "pass" },
+    { "file": "005_string_default_value.sol", "expect": "pass" },
+    { "file": "006_string_concat_builtin.sol", "expect": "pass" },
+    { "file": "007_string_bytes_conversion_roundtrip.sol", "expect": "pass" },
+    { "file": "008_string_length_via_bytes.sol", "expect": "pass" },
+    {
+      "file": "009_string_direct_length_expected_fail.sol",
+      "expect": "fail",
+      "notes": "string has no .length member directly"
+    },
+    { "file": "010_string_equality_via_hash.sol", "expect": "pass" },
+    {
+      "file": "011_string_direct_equality_expected_fail.sol",
+      "expect": "fail",
+      "notes": "no == operator for string memory/string memory"
+    },
+    { "file": "012_string_array_of_strings.sol", "expect": "pass" },
+    { "file": "013_string_in_mapping_value.sol", "expect": "pass" },
+    { "file": "014_string_storage_to_storage_copy.sol", "expect": "pass" }
+  ]
+}

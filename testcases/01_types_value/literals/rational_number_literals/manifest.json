@@ -1,0 +1,12 @@
+{
+  "tests": [
+    { "file": "001_rational_literal_exact_integer_result.sol", "expect": "pass" },
+    {
+      "file": "002_rational_literal_non_integer_result_expected_fail.sol",
+      "expect": "fail",
+      "notes": "a rational literal expression whose final result is not an exact integer cannot be assigned to an integer type"
+    },
+    { "file": "003_rational_literal_with_ether_units.sol", "expect": "pass" },
+    { "file": "004_rational_literal_large_precision_intermediate.sol", "expect": "pass" }
+  ]
+}

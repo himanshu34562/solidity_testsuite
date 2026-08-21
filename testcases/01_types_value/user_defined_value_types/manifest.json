@@ -1,0 +1,25 @@
+{
+  "tests": [
+    { "file": "001_udvt_basic_declaration.sol", "expect": "pass" },
+    { "file": "002_udvt_wrap_unwrap.sol", "expect": "pass" },
+    { "file": "003_udvt_no_implicit_conversion.sol", "expect": "pass" },
+    {
+      "file": "004_udvt_implicit_conversion_expected_fail.sol",
+      "expect": "fail",
+      "notes": "UDVTs do not implicitly convert to/from their underlying type"
+    },
+    {
+      "file": "005_udvt_no_builtin_operators_expected_fail.sol",
+      "expect": "fail",
+      "notes": "UDVTs do not inherit arithmetic/comparison operators from their underlying type"
+    },
+    { "file": "006_udvt_default_value.sol", "expect": "pass" },
+    {
+      "file": "007_udvt_distinct_types_no_cross_conversion_expected_fail.sol",
+      "expect": "fail",
+      "notes": "two UDVTs sharing the same underlying type are still mutually incompatible"
+    },
+    { "file": "008_udvt_underlying_non_uint256_type.sol", "expect": "pass" },
+    { "file": "009_udvt_comparison_via_unwrap.sol", "expect": "pass" }
+  ]
+}

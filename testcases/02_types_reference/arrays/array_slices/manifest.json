@@ -1,0 +1,24 @@
+{
+  "tests": [
+    { "file": "001_calldata_array_slice_basic.sol", "expect": "pass" },
+    { "file": "002_calldata_array_slice_open_ended_start.sol", "expect": "pass" },
+    { "file": "003_calldata_array_slice_open_ended_end.sol", "expect": "pass" },
+    { "file": "004_calldata_array_slice_full_copy.sol", "expect": "pass" },
+    {
+      "file": "005_calldata_array_slice_out_of_bounds_expected_fail_at_runtime.sol",
+      "expect": "pass",
+      "notes": "compiles successfully; reverts at runtime only if called with start > end or end > arr.length"
+    },
+    {
+      "file": "006_memory_array_slice_expected_fail.sol",
+      "expect": "fail",
+      "notes": "slicing is calldata-only, not available on memory arrays"
+    },
+    {
+      "file": "007_storage_array_slice_expected_fail.sol",
+      "expect": "fail",
+      "notes": "slicing is calldata-only, not available on storage arrays either"
+    },
+    { "file": "008_calldata_array_slice_as_further_parameter.sol", "expect": "pass" }
+  ]
+}

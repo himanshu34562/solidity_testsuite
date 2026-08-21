@@ -1,0 +1,34 @@
+{
+  "tests": [
+    { "file": "001_dynamic_array_uint256_basic.sol", "expect": "pass" },
+    { "file": "002_dynamic_array_default_value.sol", "expect": "pass" },
+    { "file": "003_dynamic_array_length_runtime_read.sol", "expect": "pass" },
+    { "file": "004_dynamic_array_push_basic.sol", "expect": "pass" },
+    { "file": "005_dynamic_array_push_no_argument.sol", "expect": "pass" },
+    { "file": "006_dynamic_array_pop.sol", "expect": "pass" },
+    {
+      "file": "007_dynamic_array_pop_empty_expected_fail_at_runtime.sol",
+      "expect": "pass",
+      "notes": "compiles successfully; popEmpty() reverts with Panic(0x31) only if called on an already-empty array"
+    },
+    {
+      "file": "008_dynamic_array_out_of_bounds_runtime.sol",
+      "expect": "pass",
+      "notes": "compiles successfully; reverts with Panic(0x32) only if called with an out-of-range index"
+    },
+    { "file": "009_dynamic_array_as_memory_parameter.sol", "expect": "pass" },
+    { "file": "010_dynamic_array_as_calldata_parameter.sol", "expect": "pass" },
+    { "file": "011_dynamic_array_memory_fixed_size_allocation.sol", "expect": "pass" },
+    {
+      "file": "012_dynamic_array_memory_no_push_pop_expected_fail.sol",
+      "expect": "fail",
+      "notes": "push/pop are storage-only, even for the same T[] type in memory"
+    },
+    { "file": "013_dynamic_array_storage_to_memory_full_copy.sol", "expect": "pass" },
+    {
+      "file": "014_dynamic_array_comparison_expected_fail.sol",
+      "expect": "fail",
+      "notes": "no built-in == operator for arrays"
+    }
+  ]
+}

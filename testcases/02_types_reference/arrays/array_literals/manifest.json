@@ -1,0 +1,25 @@
+{
+  "tests": [
+    { "file": "001_array_literal_basic_inline.sol", "expect": "pass" },
+    { "file": "002_array_literal_type_inference_from_first_element.sol", "expect": "pass" },
+    { "file": "003_array_literal_is_fixed_size_by_default.sol", "expect": "pass" },
+    { "file": "004_array_literal_mixed_types_common_type_widening.sol", "expect": "pass" },
+    {
+      "file": "005_array_literal_mixed_incompatible_types_expected_fail.sol",
+      "expect": "fail",
+      "notes": "array literal elements must share a common convertible type"
+    },
+    {
+      "file": "006_array_literal_empty_expected_fail.sol",
+      "expect": "fail",
+      "notes": "empty array literal has no elements to infer a type from"
+    },
+    { "file": "007_array_literal_of_structs.sol", "expect": "pass" },
+    { "file": "008_nested_array_literal_2d.sol", "expect": "pass" },
+    {
+      "file": "009_array_literal_element_count_mismatch_expected_fail.sol",
+      "expect": "fail",
+      "notes": "array literal's element count is baked into its inferred fixed-size type"
+    }
+  ]
+}

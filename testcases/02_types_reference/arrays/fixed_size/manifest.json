@@ -1,0 +1,31 @@
+{
+  "tests": [
+    { "file": "001_fixed_array_uint256_basic.sol", "expect": "pass" },
+    { "file": "002_fixed_array_literal_initialization.sol", "expect": "pass" },
+    { "file": "003_fixed_array_default_value.sol", "expect": "pass" },
+    { "file": "004_fixed_array_length_compile_time_constant.sol", "expect": "pass" },
+    {
+      "file": "005_fixed_array_out_of_bounds_expected_fail_at_runtime.sol",
+      "expect": "pass",
+      "notes": "compiles successfully; getAt() reverts with Panic(0x32) only if called with an out-of-range non-literal index"
+    },
+    {
+      "file": "006_fixed_array_literal_out_of_bounds_compile_expected_fail.sol",
+      "expect": "fail",
+      "notes": "a literal out-of-bounds index is a compile-time error, not deferred to runtime"
+    },
+    { "file": "007_fixed_array_as_function_parameter.sol", "expect": "pass" },
+    {
+      "file": "008_fixed_array_no_push_pop_expected_fail.sol",
+      "expect": "fail",
+      "notes": "fixed-size arrays do not support push/pop"
+    },
+    { "file": "009_fixed_array_storage_to_memory_copy.sol", "expect": "pass" },
+    { "file": "010_fixed_array_assignment_copies_not_references.sol", "expect": "pass" },
+    {
+      "file": "011_fixed_array_comparison_expected_fail.sol",
+      "expect": "fail",
+      "notes": "no built-in == operator for arrays"
+    }
+  ]
+}

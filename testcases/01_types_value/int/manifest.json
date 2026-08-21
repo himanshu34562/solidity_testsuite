@@ -1,0 +1,24 @@
+{
+  "tests": [
+    { "file": "001_int8_basic.sol", "expect": "pass" },
+    { "file": "002_int16_basic.sol", "expect": "pass" },
+    { "file": "003_int32_basic.sol", "expect": "pass" },
+    { "file": "004_int64_basic.sol", "expect": "pass" },
+    { "file": "005_int128_basic.sol", "expect": "pass" },
+    { "file": "006_int256_basic.sol", "expect": "pass" },
+    { "file": "007_int_alias_is_int256.sol", "expect": "pass" },
+    { "file": "008_int_default_value.sol", "expect": "pass" },
+    { "file": "009_int8_overflow_checked.sol", "expect": "pass", "notes": "reverts with Panic(0x11) only if called at value == 127" },
+    { "file": "010_int8_underflow_checked.sol", "expect": "pass", "notes": "reverts with Panic(0x11) only if called at value == -128" },
+    { "file": "011_int8_overflow_unchecked.sol", "expect": "pass" },
+    { "file": "012_int_downcast_truncation.sol", "expect": "pass" },
+    { "file": "013_int_upcast_sign_extension.sol", "expect": "pass", "notes": "must sign-extend, not zero-extend, on widening" },
+    { "file": "014_int_division_by_zero.sol", "expect": "pass", "notes": "reverts with Panic(0x12) only if called with b == 0" },
+    {
+      "file": "015_int_min_divided_by_negative_one.sol",
+      "expect": "pass",
+      "notes": "compiles successfully; triggerEdgeCase() reverts with Panic(0x11) at runtime -- classic type(int256).min / -1 overflow"
+    },
+    { "file": "016_int_negation_overflow.sol", "expect": "pass", "notes": "negate() reverts with Panic(0x11) only if called with type(int8).min" }
+  ]
+}

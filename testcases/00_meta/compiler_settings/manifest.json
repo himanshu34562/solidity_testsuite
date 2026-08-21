@@ -1,0 +1,35 @@
+{
+  "tests": [
+    {
+      "file": "001_optimizer_sensitive.sol",
+      "cases": [
+        { "flags": [], "expect": "pass" },
+        { "flags": ["--optimize"], "expect": "pass" }
+      ]
+    },
+    {
+      "file": "002_stack_too_deep_requires_viair.sol",
+      "cases": [
+        { "flags": [], "expect": "fail" },
+        { "flags": ["--via-ir"], "expect": "fail" },
+        { "flags": ["--via-ir", "--optimize"], "expect": "pass" }
+      ],
+      "notes": "--via-ir alone is insufficient; requires --optimize together. NOTE: sol2bc CLI flags may not map 1:1 to solc's --via-ir/--optimize; verify sol2bc's actual flag names before running this manifest."
+    },
+    {
+      "file": "003_evm_version_push0.sol",
+      "cases": [
+        { "flags": ["--evm-version", "istanbul"], "expect": "pass" },
+        { "flags": ["--evm-version", "shanghai"], "expect": "pass" }
+      ],
+      "notes": "originally tested cancun as expected-fail against solc 0.8.20 (unsupported below 0.8.24); sol2bc links libsolidity v0.8.36, which likely DOES support cancun -- omitted here until confirmed, worth adding back once verified"
+    },
+    {
+      "file": "004_evm_version_basefee.sol",
+      "cases": [
+        { "flags": ["--evm-version", "istanbul"], "expect": "fail" },
+        { "flags": ["--evm-version", "london"], "expect": "pass" }
+      ]
+    }
+  ]
+}
