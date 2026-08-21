@@ -7,6 +7,10 @@ pragma solidity ^0.8.20;
 // to ASCII letters/digits/underscore, so this is expected to compile
 // fine as long as identifiers stay ASCII while only literal CONTENT
 // uses unicode.
+// NOTE: an earlier version of this file mistakenly used a non-ASCII
+// character (é) directly in the identifier itself (cafe_name), which
+// is exactly the thing this file is supposed to demonstrate does NOT
+// work -- fixed to use a genuinely ASCII identifier.
 contract UnicodeIdentifierInCode {
-    string public café_name = unicode"Café Solidity"; // ASCII identifier, unicode content
+    string public cafe_name = unicode"Café Solidity"; // ASCII identifier, unicode content
 }
