@@ -1,0 +1,69 @@
+{
+  "tests": [
+    {
+      "file": "001_storage_to_memory_array_copy.sol",
+      "expect": "pass",
+      "notes": "storage -> memory assignment copies; mutating the memory copy does not write back to storage"
+    },
+    {
+      "file": "002_memory_to_storage_array_copy.sol",
+      "expect": "pass",
+      "notes": "memory -> storage state variable assignment copies elements and resizes the storage array; later memory writes do not affect storage"
+    },
+    {
+      "file": "003_calldata_to_storage_array_copy.sol",
+      "expect": "pass",
+      "notes": "a calldata array can be assigned directly to a storage state variable (copy)"
+    },
+    {
+      "file": "004_memory_to_memory_assignment_aliases.sol",
+      "expect": "pass",
+      "notes": "memory -> memory assignment and passing to an internal memory parameter alias the same region rather than copying"
+    },
+    {
+      "file": "005_storage_to_storage_state_array_copy.sol",
+      "expect": "pass",
+      "notes": "assigning one storage state array to another copies; contrast with a local storage pointer, which aliases"
+    },
+    {
+      "file": "006_storage_struct_to_memory_copy.sol",
+      "expect": "pass",
+      "notes": "storage struct -> memory struct copies all fields; mutating the copy leaves storage unchanged"
+    },
+    {
+      "file": "007_memory_struct_to_storage_copy.sol",
+      "expect": "pass",
+      "notes": "memory struct -> storage struct and memory struct -> storage array push both copy"
+    },
+    {
+      "file": "008_storage_array_returned_as_memory.sol",
+      "expect": "pass",
+      "notes": "returning a storage array from a public function performs an implicit storage -> memory copy at the return statement"
+    },
+    {
+      "file": "009_external_call_memory_to_calldata_param.sol",
+      "expect": "pass",
+      "notes": "memory -> calldata is legal across an external call (this.f(m)) because the argument is ABI-encoded; contrast with 012"
+    },
+    {
+      "file": "010_memory_to_storage_pointer_expected_fail.sol",
+      "expect": "fail",
+      "notes": "a memory array cannot be bound to a local storage pointer; a storage pointer must refer to data that lives in storage"
+    },
+    {
+      "file": "011_calldata_to_storage_pointer_expected_fail.sol",
+      "expect": "fail",
+      "notes": "a calldata array cannot be bound to a local storage pointer; copying calldata into a storage state variable (003) is a copy, not a pointer binding"
+    },
+    {
+      "file": "012_memory_to_calldata_internal_parameter_expected_fail.sol",
+      "expect": "fail",
+      "notes": "memory array cannot be passed to an internal function with a calldata parameter; no implicit memory -> calldata conversion without an external call"
+    },
+    {
+      "file": "013_storage_to_calldata_internal_parameter_expected_fail.sol",
+      "expect": "fail",
+      "notes": "storage array cannot be passed to an internal function with a calldata parameter; same root cause as 012"
+    }
+  ]
+}
