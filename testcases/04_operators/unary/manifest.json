@@ -1,0 +1,150 @@
+{
+  "tests": [
+    { "file": "001_unary_minus_signed_basic.sol", "expect": "pass" },
+    {
+      "file": "002_unary_minus_on_literals.sol",
+      "expect": "pass",
+      "notes": "a negative literal is folded at compile time, so -128 is accepted for int8 even though +128 would not fit"
+    },
+    {
+      "file": "003_double_negation_identity.sol",
+      "expect": "pass",
+      "notes": "-(-x) and - -x both return x; the first negation of type(int256).min reverts with Panic(0x11); without the space -- would be a decrement"
+    },
+    {
+      "file": "004_unary_minus_after_binary_operator.sol",
+      "expect": "pass",
+      "notes": "a - -b is a + b, a + -b is a - b, a * -b is -(a * b); the space between operators matters"
+    },
+    {
+      "file": "005_prefix_increment_returns_new_value.sol",
+      "expect": "pass",
+      "notes": "++x yields the new value: f(5) == (6, 6)"
+    },
+    {
+      "file": "006_postfix_increment_returns_old_value.sol",
+      "expect": "pass",
+      "notes": "x++ yields the old value and increments afterwards: f(5) == (5, 6)"
+    },
+    {
+      "file": "007_prefix_decrement_returns_new_value.sol",
+      "expect": "pass",
+      "notes": "--x yields the new value: f(5) == (4, 4)"
+    },
+    {
+      "file": "008_postfix_decrement_returns_old_value.sol",
+      "expect": "pass",
+      "notes": "x-- yields the old value and decrements afterwards: f(5) == (5, 4)"
+    },
+    {
+      "file": "009_increment_decrement_on_state_variable.sol",
+      "expect": "pass",
+      "notes": "prefix and postfix ++ and -- on a storage variable follow the same old-vs-new rule; dec() on a zero counter reverts with Panic(0x11)"
+    },
+    {
+      "file": "010_increment_on_mapping_element.sol",
+      "expect": "pass",
+      "notes": "a missing key reads as 0, so the first prefix increment yields 1 and the first postfix increment returns 0"
+    },
+    {
+      "file": "011_increment_on_array_element_and_struct_field.sol",
+      "expect": "pass",
+      "notes": "++ and -- on a storage array element and on struct fields including a narrow packed uint8 field"
+    },
+    {
+      "file": "012_increment_decrement_on_signed_integers.sol",
+      "expect": "pass",
+      "notes": "compiles successfully; ++ and -- cross zero correctly and inc(127) / dec(-128) revert with Panic(0x11)"
+    },
+    {
+      "file": "013_increment_in_for_and_while_loops.sol",
+      "expect": "pass",
+      "notes": "for-loop counter, while loop counting down, and do-while counting up"
+    },
+    {
+      "file": "014_postfix_increment_as_array_index.sol",
+      "expect": "pass",
+      "notes": "a[i++] reads the element at the old index and then advances the index: readTwo() == (10, 20, 2)"
+    },
+    {
+      "file": "015_delete_integer_resets_to_zero.sol",
+      "expect": "pass",
+      "notes": "delete assigns the default value 0 on both local and storage integers"
+    },
+    {
+      "file": "016_delete_bool_address_bytes_enum.sol",
+      "expect": "pass",
+      "notes": "delete resets bool to false, address to address(0), bytesN to zero bytes and enum to its first member"
+    },
+    {
+      "file": "017_delete_array_element_and_dynamic_array.sol",
+      "expect": "pass",
+      "notes": "deleting an element resets it but keeps the length; deleting the whole dynamic array sets its length to 0"
+    },
+    {
+      "file": "018_delete_fixed_array_resets_all_elements.sol",
+      "expect": "pass",
+      "notes": "deleting a fixed-size storage array resets every element; the length is unchanged"
+    },
+    {
+      "file": "019_delete_struct_resets_all_fields.sol",
+      "expect": "pass",
+      "notes": "deleting a struct resets all of its fields to their defaults"
+    },
+    {
+      "file": "020_delete_struct_with_mapping_keeps_mapping.sol",
+      "expect": "pass",
+      "notes": "deleting a struct resets every field except mappings, which keep their entries"
+    },
+    {
+      "file": "021_delete_mapping_element.sol",
+      "expect": "pass",
+      "notes": "a single mapping entry can be deleted by key; other keys are unaffected"
+    },
+    {
+      "file": "022_delete_string_and_bytes.sol",
+      "expect": "pass",
+      "notes": "deleting a storage string or bytes resets it to empty"
+    },
+    {
+      "file": "023_unary_minus_on_unsigned_expected_fail.sol",
+      "expect": "fail",
+      "notes": "unary minus exists only for signed integers; applying it to unsigned is rejected since 0.8.0"
+    },
+    {
+      "file": "024_unary_minus_on_bool_expected_fail.sol",
+      "expect": "fail",
+      "notes": "unary minus does not apply to bool"
+    },
+    {
+      "file": "025_increment_on_bool_expected_fail.sol",
+      "expect": "fail",
+      "notes": "++ and -- apply to integers only"
+    },
+    {
+      "file": "026_increment_on_address_expected_fail.sol",
+      "expect": "fail",
+      "notes": "++ does not apply to address; it would need a round trip through uint160"
+    },
+    {
+      "file": "027_increment_on_constant_expected_fail.sol",
+      "expect": "fail",
+      "notes": "a constant cannot be modified by ++ or by any other operator"
+    },
+    {
+      "file": "028_delete_non_lvalue_expected_fail.sol",
+      "expect": "fail",
+      "notes": "delete needs a location to reset; a computed value is not an lvalue"
+    },
+    {
+      "file": "029_delete_whole_mapping_expected_fail.sol",
+      "expect": "fail",
+      "notes": "a mapping cannot be deleted as a whole because its keys cannot be enumerated; delete individual entries (see 021)"
+    },
+    {
+      "file": "030_calldata_array_element_increment_expected_fail.sol",
+      "expect": "fail",
+      "notes": "calldata is read-only, so a calldata array element cannot be modified in place"
+    }
+  ]
+}
