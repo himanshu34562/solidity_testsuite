@@ -1,0 +1,124 @@
+{
+  "tests": [
+    {
+      "file": "001_multiplication_before_addition.sol",
+      "expect": "pass",
+      "notes": "* binds tighter than +, so a + b * c is a + (b * c)"
+    },
+    {
+      "file": "002_multiplicative_operators_left_associative.sol",
+      "expect": "pass",
+      "notes": "*, / and % share a level and group left to right; with truncating division the grouping changes the result (7 / 2 * 2 == 6)"
+    },
+    {
+      "file": "003_additive_operators_left_associative.sol",
+      "expect": "pass",
+      "notes": "compiles successfully; + and - group left to right; subThenAdd(1, 3, 5) reverts with Panic(0x11) at the first subtraction"
+    },
+    {
+      "file": "004_exponent_binds_tighter_than_multiplication.sol",
+      "expect": "pass",
+      "notes": "** binds tighter than *, so a * b ** c is a * (b ** c)"
+    },
+    {
+      "file": "005_unary_minus_binds_tighter_than_exponent.sol",
+      "expect": "pass",
+      "notes": "in Solidity -a ** b is (-a) ** b, the opposite of ordinary mathematical convention; -2 ** 2 evaluates to 4"
+    },
+    {
+      "file": "006_shift_lower_than_additive.sol",
+      "expect": "pass",
+      "notes": "<< and >> bind looser than + and -, so a << b + c is a << (b + c)"
+    },
+    {
+      "file": "007_shift_chain_left_associative.sol",
+      "expect": "pass",
+      "notes": "shifts group left to right: a << b >> c is (a << b) >> c"
+    },
+    {
+      "file": "008_bitwise_and_xor_or_ordering.sol",
+      "expect": "pass",
+      "notes": "&, ^ and | are three separate levels, tightest to loosest, so a | b ^ c & d is a | (b ^ (c & d))"
+    },
+    {
+      "file": "009_arithmetic_before_comparison.sol",
+      "expect": "pass",
+      "notes": "arithmetic binds tighter than relational and equality operators"
+    },
+    {
+      "file": "010_bitwise_binds_tighter_than_comparison_and_equality.sol",
+      "expect": "pass",
+      "notes": "unlike C, bitwise operators bind tighter than relational and equality in Solidity; x & mask == expected is (x & mask) == expected and compiles without parentheses"
+    },
+    {
+      "file": "011_relational_binds_tighter_than_equality.sol",
+      "expect": "pass",
+      "notes": "a < b == c < d is (a < b) == (c < d)"
+    },
+    {
+      "file": "012_logical_lower_than_comparison.sol",
+      "expect": "pass",
+      "notes": "comparisons bind tighter than && and ||, and && tighter than ||"
+    },
+    {
+      "file": "013_ternary_lower_than_logical_or.sol",
+      "expect": "pass",
+      "notes": "a || b ? x : y is (a || b) ? x : y"
+    },
+    {
+      "file": "014_assignment_right_associative.sol",
+      "expect": "pass",
+      "notes": "a = b = c is a = (b = c); the inner assignment evaluates to the assigned value and may be implicitly widened"
+    },
+    {
+      "file": "015_assignment_lowest_precedence.sol",
+      "expect": "pass",
+      "notes": "assignment has the lowest precedence; x *= a + b is x = x * (a + b)"
+    },
+    {
+      "file": "016_unary_applies_after_index_and_member_access.sol",
+      "expect": "pass",
+      "notes": "indexing and member access bind tighter than unary operators: -arr[i] negates the element, !s.ok negates the field"
+    },
+    {
+      "file": "017_unary_binds_tighter_than_binary.sol",
+      "expect": "pass",
+      "notes": "prefix ~, ! and - bind tighter than every binary operator: ~a & b is (~a) & b"
+    },
+    {
+      "file": "018_cast_binds_tighter_than_binary.sol",
+      "expect": "pass",
+      "notes": "an explicit conversion binds tighter than binary operators: uint8(x) + y truncates x first, uint8(x + y) truncates after adding"
+    },
+    {
+      "file": "019_full_arithmetic_and_bitwise_chain.sol",
+      "expect": "pass",
+      "notes": "one expression across six precedence levels (**, *, +, <<, &, |); implicit and explicit forms must agree"
+    },
+    {
+      "file": "020_unary_plus_expected_fail.sol",
+      "expect": "fail",
+      "notes": "unary plus does not exist in Solidity (removed in 0.5.0)"
+    },
+    {
+      "file": "021_unary_minus_before_exponent_on_unsigned_expected_fail.sol",
+      "expect": "fail",
+      "notes": "unary minus binds tighter than **, so -a ** b negates an unsigned a first, which is invalid"
+    },
+    {
+      "file": "022_increment_on_non_lvalue_expected_fail.sol",
+      "expect": "fail",
+      "notes": "++ and -- need an lvalue; (a + b) is a temporary value"
+    },
+    {
+      "file": "023_assignment_to_arithmetic_result_expected_fail.sol",
+      "expect": "fail",
+      "notes": "assignment is lowest precedence, so a + b = c groups as (a + b) = c, assigning to a temporary"
+    },
+    {
+      "file": "024_chained_equality_expected_fail.sol",
+      "expect": "fail",
+      "notes": "a == b == c is (a == b) == c, comparing a bool with an integer; not an all-three-equal check"
+    }
+  ]
+}
