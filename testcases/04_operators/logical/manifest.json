@@ -1,0 +1,102 @@
+{
+  "tests": [
+    { "file": "001_and_basic.sol", "expect": "pass" },
+    { "file": "002_or_basic.sol", "expect": "pass" },
+    { "file": "003_not_basic.sol", "expect": "pass" },
+    {
+      "file": "004_short_circuit_and_skips_rhs.sol",
+      "expect": "pass",
+      "notes": "&& does not evaluate the right operand when the left is false, so its side effect does not happen; a converter lowering && to a bitwise AND of both sides gets this wrong"
+    },
+    {
+      "file": "005_short_circuit_or_skips_rhs.sol",
+      "expect": "pass",
+      "notes": "|| does not evaluate the right operand when the left is true, so its side effect does not happen"
+    },
+    {
+      "file": "006_short_circuit_guards_division_by_zero.sol",
+      "expect": "pass",
+      "notes": "b != 0 && a / b > 1 must not panic with 0x12 when b is zero, because the division is never evaluated"
+    },
+    {
+      "file": "007_short_circuit_guards_array_bounds.sol",
+      "expect": "pass",
+      "notes": "i < items.length && items[i] == x must not panic with 0x32 when i is out of range, because the read is never evaluated"
+    },
+    {
+      "file": "008_evaluation_order_left_to_right.sol",
+      "expect": "pass",
+      "notes": "operands of && and || run strictly left to right and stop as soon as the result is known; trace records the call order (runAnd == 123, runOr == 31, runAndStops == 3)"
+    },
+    {
+      "file": "009_and_binds_tighter_than_or.sol",
+      "expect": "pass",
+      "notes": "&& has higher precedence than ||: a || b && c means a || (b && c); differs from (a || b) && c for a=true, b=false, c=false"
+    },
+    {
+      "file": "010_double_negation_and_de_morgan.sol",
+      "expect": "pass",
+      "notes": "!!a == a and De Morgan's laws hold for every input"
+    },
+    {
+      "file": "011_logical_on_comparison_results.sol",
+      "expect": "pass",
+      "notes": "comparison results are bool and combine directly with &&, || and !"
+    },
+    {
+      "file": "012_logical_in_control_flow_conditions.sol",
+      "expect": "pass",
+      "notes": "logical expressions as conditions in if, while and require; requireEither(false, false) reverts with \"neither\""
+    },
+    {
+      "file": "013_logical_result_stored_in_state_variable.sol",
+      "expect": "pass",
+      "notes": "logical results stored into a bool state variable, including toggling with !"
+    },
+    {
+      "file": "014_nested_logical_expressions.sol",
+      "expect": "pass",
+      "notes": "nested and mixed logical expressions exercise control-flow lowering of several short-circuit operators in one expression"
+    },
+    {
+      "file": "015_not_on_comparison_equals_inverse_comparison.sol",
+      "expect": "pass",
+      "notes": "!(a == b) agrees with a != b and !(a < b) agrees with a >= b for every input"
+    },
+    {
+      "file": "016_logical_and_on_integers_expected_fail.sol",
+      "expect": "fail",
+      "notes": "&& requires bool operands; integers have no truthiness and are not implicitly converted"
+    },
+    {
+      "file": "017_logical_not_on_integer_expected_fail.sol",
+      "expect": "fail",
+      "notes": "! requires a bool operand; test an integer for zero with x == 0"
+    },
+    {
+      "file": "018_logical_or_bool_with_integer_expected_fail.sol",
+      "expect": "fail",
+      "notes": "mixing a bool with an integer variable in || is rejected; the integer is not converted to bool"
+    },
+    {
+      "file": "019_integer_in_if_condition_expected_fail.sol",
+      "expect": "fail",
+      "notes": "conditions must be bool; there is no non-zero-is-true rule"
+    },
+    {
+      "file": "020_logical_and_with_integer_literal_expected_fail.sol",
+      "expect": "fail",
+      "notes": "the integer literal 1 is not the bool true and is not accepted as an operand of &&"
+    },
+    {
+      "file": "021_assign_integer_to_bool_expected_fail.sol",
+      "expect": "fail",
+      "notes": "an integer cannot be assigned to a bool variable, not even the literals 0 and 1"
+    },
+    {
+      "file": "022_logical_xor_operator_does_not_exist_expected_fail.sol",
+      "expect": "fail",
+      "notes": "there is no ^^ operator; on bool, a != b gives logical XOR (see comparison/008)"
+    }
+  ]
+}
