@@ -1,0 +1,44 @@
+{
+  "tests": [
+    {
+      "file": "001_sequential_small_types_pack_into_one_slot.sol",
+      "expect": "pass",
+      "notes": "bool + uint8 + bool + address (1+1+1+20 = 23 bytes) declared sequentially all share slot 0 at offsets 0, 1, 2, 3"
+    },
+    {
+      "file": "002_full_width_type_forces_new_slot.sol",
+      "expect": "pass",
+      "notes": "a uint256 always starts a fresh slot even when the previous slot has free bytes, and the variable declared after it starts yet another slot"
+    },
+    {
+      "file": "003_partial_fit_forces_new_slot.sol",
+      "expect": "pass",
+      "notes": "a variable that does not fit in the remaining space of the current slot moves to the next slot; solc never splits one value across two slots (two uint128 exactly fill slot 0, uint256 takes slot 1, next uint128 takes slot 2)"
+    },
+    {
+      "file": "004_struct_fields_pack_independently_of_surrounding_state.sol",
+      "expect": "pass",
+      "notes": "struct fields pack among themselves, but the struct always starts at a fresh slot and the state variable declared after it also starts at the next fresh slot, so neither shares a slot with the struct"
+    },
+    {
+      "file": "005_fixed_array_elements_pack_within_the_array.sol",
+      "expect": "pass",
+      "notes": "uint8[4] packs all four elements into a single slot; 1D counterpart of multidimensional/009"
+    },
+    {
+      "file": "006_dynamic_array_and_mapping_always_start_fresh_slot.sol",
+      "expect": "pass",
+      "notes": "dynamic arrays and mappings each take their own base slot (length slot / unused slot) and never pack with neighbouring small variables; the next small variable starts a new slot"
+    },
+    {
+      "file": "007_reordering_declarations_changes_packing.sol",
+      "expect": "pass",
+      "notes": "same variables as 001 in a different order: total bytes are unchanged but the offsets within the slot differ (address at offset 0, then bool, uint8, bool at offsets 20, 21, 22)"
+    },
+    {
+      "file": "008_inherited_contract_state_variables_pack_after_base.sol",
+      "expect": "pass",
+      "notes": "base contract variables get the earliest slots and derived variables continue packing after them, so derivedSmall shares slot 0 with the inherited baseFlag and the uint256 goes to slot 1"
+    }
+  ]
+}
