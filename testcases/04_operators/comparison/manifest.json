@@ -1,0 +1,136 @@
+{
+  "tests": [
+    {
+      "file": "001_equality_inequality_unsigned.sol",
+      "expect": "pass"
+    },
+    {
+      "file": "002_equality_inequality_signed.sol",
+      "expect": "pass"
+    },
+    {
+      "file": "003_relational_unsigned.sol",
+      "expect": "pass"
+    },
+    {
+      "file": "004_relational_signed_vs_unsigned_view.sol",
+      "expect": "pass",
+      "notes": "signed operands compare as signed, the same bits cast to unsigned compare as unsigned; -1 < 0 is true for int256 but uint256(-1) < 0 is false; a converter must pick slt vs ult"
+    },
+    {
+      "file": "005_comparison_with_type_min_max.sol",
+      "expect": "pass",
+      "notes": "comparisons at the extremes of each type via type(T).min and type(T).max"
+    },
+    {
+      "file": "006_mixed_width_same_signedness.sol",
+      "expect": "pass",
+      "notes": "the narrower operand is widened to the wider type before comparing"
+    },
+    {
+      "file": "007_result_is_bool_and_composable.sol",
+      "expect": "pass",
+      "notes": "a comparison yields a bool usable as a stored value, a branch condition, an operand of ==, and with logical operators"
+    },
+    {
+      "file": "008_bool_equality.sol",
+      "expect": "pass",
+      "notes": "bool supports only == and !=; != acts as logical XOR"
+    },
+    {
+      "file": "009_address_equality_and_ordering.sol",
+      "expect": "pass",
+      "notes": "address supports all six comparison operators; ordering compares the underlying 160-bit unsigned value"
+    },
+    {
+      "file": "010_address_payable_vs_address.sol",
+      "expect": "pass",
+      "notes": "address payable converts implicitly to address, so the two compare directly in either order"
+    },
+    {
+      "file": "011_bytesN_equality_and_ordering.sol",
+      "expect": "pass",
+      "notes": "bytesN supports all six comparison operators; ordering treats the first byte as the most significant"
+    },
+    {
+      "file": "012_enum_equality.sol",
+      "expect": "pass",
+      "notes": "enum values compare with == and != against other values or members of the same enum"
+    },
+    {
+      "file": "013_string_equality_via_keccak256.sol",
+      "expect": "pass",
+      "notes": "strings cannot be compared with == (see 017); the standard idiom compares their keccak256 hashes"
+    },
+    {
+      "file": "014_integer_vs_literal_comparison.sol",
+      "expect": "pass",
+      "notes": "a literal that fits the variable's type is converted to that type; covers decimal, hex, zero and negative literals"
+    },
+    {
+      "file": "015_mixed_signedness_comparison_expected_fail.sol",
+      "expect": "fail",
+      "notes": "uint256 vs int256 has no common type, so the comparison is rejected"
+    },
+    {
+      "file": "016_relational_on_bool_expected_fail.sol",
+      "expect": "fail",
+      "notes": "bool supports only == and !=; relational operators do not apply"
+    },
+    {
+      "file": "017_string_equality_expected_fail.sol",
+      "expect": "fail",
+      "notes": "strings cannot be compared with ==; compare keccak256 hashes instead (see 013)"
+    },
+    {
+      "file": "018_array_equality_expected_fail.sol",
+      "expect": "fail",
+      "notes": "arrays cannot be compared with == even with identical type and location"
+    },
+    {
+      "file": "019_struct_equality_expected_fail.sol",
+      "expect": "fail",
+      "notes": "structs cannot be compared with ==; fields must be compared individually"
+    },
+    {
+      "file": "020_integer_vs_address_expected_fail.sol",
+      "expect": "fail",
+      "notes": "address and uint160 do not convert implicitly in either direction, so they cannot be compared directly"
+    },
+    {
+      "file": "021_chained_comparison_expected_fail.sol",
+      "expect": "fail",
+      "notes": "a < b < c parses as (a < b) < c, comparing a bool with an integer; it is not a range check"
+    },
+    {
+      "file": "022_literal_wider_than_variable_widens_comparison.sol",
+      "expect": "pass",
+      "notes": "when the variable widens into the literal's own smallest type (unsigned var vs positive literal, signed var vs negative literal) the comparison is done in that wider type and the literal is not truncated; x == 256 for a uint8 x is always false, not a comparison against 0"
+    },
+    {
+      "file": "023_bool_vs_integer_expected_fail.sol",
+      "expect": "fail",
+      "notes": "bool and integers do not convert implicitly, so a bool cannot be compared with 0 or 1"
+    },
+    {
+      "file": "024_negative_literal_vs_unsigned_expected_fail.sol",
+      "expect": "fail",
+      "notes": "a negative literal has no common type with an unsigned integer; a merely too-large literal is fine (see 022)"
+    },
+    {
+      "file": "025_literal_beyond_uint256_expected_fail.sol",
+      "expect": "fail",
+      "notes": "a literal larger than any 256-bit integer has no type to be compared in, so the comparison is rejected"
+    },
+    {
+      "file": "026_signed_vs_too_large_positive_literal_expected_fail.sol",
+      "expect": "fail",
+      "notes": "a signed variable cannot be compared with a positive literal exceeding its range: the literal's smallest type is unsigned and int8 does not convert to it, so there is no common type (contrast with 022)"
+    },
+    {
+      "file": "026_signed_vs_too_large_positive_literal_expected_fail.sol",
+      "expect": "fail",
+      "notes": "a signed variable cannot be compared with a positive literal exceeding its range: the literal's smallest type is unsigned and int8 does not convert to it, so there is no common type (contrast with 022)"
+    }
+  ]
+}
