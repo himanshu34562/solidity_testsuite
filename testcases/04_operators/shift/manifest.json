@@ -1,0 +1,96 @@
+{
+  "tests": [
+    { "file": "001_shl_basic.sol", "expect": "pass" },
+    {
+      "file": "002_shr_unsigned_basic.sol",
+      "expect": "pass",
+      "notes": "unsigned >> is a logical shift; zeros are shifted in from the left"
+    },
+    {
+      "file": "003_shr_signed_arithmetic_keeps_sign.sol",
+      "expect": "pass",
+      "notes": "signed >> is an arithmetic shift that replicates the sign bit; a converter must lower it to ashr, not lshr"
+    },
+    {
+      "file": "004_shr_signed_rounds_toward_negative_infinity.sol",
+      "expect": "pass",
+      "notes": "-7 >> 1 == -4 (rounds toward negative infinity) while -7 / 2 == -3 (truncates toward zero)"
+    },
+    {
+      "file": "005_shl_discards_high_bits_no_overflow_check.sol",
+      "expect": "pass",
+      "notes": "compiles successfully; << discards overflowed bits silently while a * 2 reverts with Panic(0x11) for type(uint256).max"
+    },
+    {
+      "file": "006_shift_by_width_or_more_yields_zero.sol",
+      "expect": "pass",
+      "notes": "unsigned shifts by an amount >= the bit width yield 0 and never revert; native LLVM shifts are undefined for such amounts, so a converter must handle it explicitly"
+    },
+    {
+      "file": "007_shr_signed_by_width_or_more_fills_with_sign.sol",
+      "expect": "pass",
+      "notes": "arithmetic right shift of a signed value by >= its width yields -1 for negative values and 0 otherwise"
+    },
+    { "file": "008_shift_by_zero_is_identity.sol", "expect": "pass" },
+    {
+      "file": "009_shift_amount_type_does_not_affect_result_type.sol",
+      "expect": "pass",
+      "notes": "the shift amount may be any unsigned type; the result type follows the left operand only"
+    },
+    {
+      "file": "010_shl_signed_discards_bits_and_can_flip_sign.sol",
+      "expect": "pass",
+      "notes": "<< on a signed value shifts the two's complement pattern with no overflow check; int8 64 << 1 == -128"
+    },
+    {
+      "file": "011_literal_shifted_by_non_literal_uses_uint256_or_int256.sol",
+      "expect": "pass",
+      "notes": "since 0.7.0 a literal shifted by a non-literal is computed in uint256 (non-negative) or int256 (negative)"
+    },
+    {
+      "file": "012_explicit_cast_literal_before_shift.sol",
+      "expect": "pass",
+      "notes": "uint8(1) << n computes in uint8 so high bits are discarded at 8 bits; the uncast form is rejected in 018"
+    },
+    {
+      "file": "013_bytesN_shifts.sol",
+      "expect": "pass",
+      "notes": "bytesN supports << and >> with an unsigned bit-count; the result keeps the bytesN type"
+    },
+    {
+      "file": "014_literal_shift_constant_folding_in_range.sol",
+      "expect": "pass",
+      "notes": "literal << literal is folded at compile time to an exact constant, which converts as long as the value fits the target type"
+    },
+    {
+      "file": "015_shift_by_negative_literal_expected_fail.sol",
+      "expect": "fail",
+      "notes": "shift amounts must be unsigned; a negative literal amount is rejected"
+    },
+    {
+      "file": "016_shift_with_signed_amount_expected_fail.sol",
+      "expect": "fail",
+      "notes": "a signed shift amount is rejected even with an unsigned left operand"
+    },
+    {
+      "file": "017_literal_shift_exceeds_uint256_expected_fail.sol",
+      "expect": "fail",
+      "notes": "1 << 256 is folded to 2**256 which does not fit uint256; the non-literal form silently yields 0 at runtime (see 006)"
+    },
+    {
+      "file": "018_literal_shifted_by_non_literal_to_narrow_type_expected_fail.sol",
+      "expect": "fail",
+      "notes": "1 << n is computed in uint256, so assigning it to uint8 is an implicit narrowing; fix is uint8(1) << n (see 012)"
+    },
+    {
+      "file": "019_shift_on_bool_expected_fail.sol",
+      "expect": "fail",
+      "notes": "shift operators do not apply to bool"
+    },
+    {
+      "file": "020_shift_on_address_expected_fail.sol",
+      "expect": "fail",
+      "notes": "shift operators do not apply to address directly; an explicit conversion to uint160 is needed"
+    }
+  ]
+}
