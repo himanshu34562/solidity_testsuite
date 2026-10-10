@@ -1,0 +1,93 @@
+{
+  "tests": [
+    { "file": "001_addition_basic.sol", "expect": "pass" },
+    { "file": "002_subtraction_basic.sol", "expect": "pass" },
+    { "file": "003_multiplication_basic.sol", "expect": "pass" },
+    {
+      "file": "004_division_unsigned_truncates.sol",
+      "expect": "pass",
+      "notes": "unsigned division discards the remainder; divide(7, 2) == 3"
+    },
+    {
+      "file": "005_division_signed_truncates_toward_zero.sol",
+      "expect": "pass",
+      "notes": "signed division truncates toward zero, not toward negative infinity; divide(-7, 2) == -3"
+    },
+    { "file": "006_modulo_unsigned.sol", "expect": "pass" },
+    {
+      "file": "007_modulo_signed_sign_follows_dividend.sol",
+      "expect": "pass",
+      "notes": "signed modulo takes the sign of the dividend; mod(-7, 3) == -1, mod(7, -3) == 1"
+    },
+    {
+      "file": "008_exponentiation_basic.sol",
+      "expect": "pass",
+      "notes": "result type equals the base type; a signed base with an unsigned exponent is allowed"
+    },
+    {
+      "file": "009_exponentiation_right_associative.sol",
+      "expect": "pass",
+      "notes": "** is right-associative since 0.8.0: 2 ** 3 ** 2 == 512, while (2 ** 3) ** 2 == 64"
+    },
+    {
+      "file": "010_zero_to_the_zero_is_one.sol",
+      "expect": "pass",
+      "notes": "0 ** 0 == 1 and x ** 0 == 1, matching the EVM EXP opcode"
+    },
+    {
+      "file": "011_mixed_width_result_is_wider_type.sol",
+      "expect": "pass",
+      "notes": "uint8 + uint16 is computed in uint16, so add(255, 1) == 256 with no revert"
+    },
+    {
+      "file": "012_addition_overflow_checked.sol",
+      "expect": "pass",
+      "notes": "compiles successfully; add(type(uint256).max, 1) reverts with Panic(0x11)"
+    },
+    {
+      "file": "013_subtraction_underflow_checked.sol",
+      "expect": "pass",
+      "notes": "compiles successfully; sub(0, 1) reverts with Panic(0x11)"
+    },
+    {
+      "file": "014_multiplication_overflow_checked.sol",
+      "expect": "pass",
+      "notes": "compiles successfully; mul(type(uint256).max, 2) and mulSigned(type(int256).min, -1) revert with Panic(0x11)"
+    },
+    {
+      "file": "015_exponentiation_overflow_checked.sol",
+      "expect": "pass",
+      "notes": "compiles successfully; pow(2, 256) reverts with Panic(0x11)"
+    },
+    {
+      "file": "016_division_by_zero_expected_fail_at_runtime.sol",
+      "expect": "pass",
+      "notes": "compiles successfully; divide(1, 0) reverts with Panic(0x12) because the divisor is not a compile-time constant"
+    },
+    {
+      "file": "017_modulo_by_zero_expected_fail_at_runtime.sol",
+      "expect": "pass",
+      "notes": "compiles successfully; mod(1, 0) reverts with Panic(0x12), the same code as division by zero"
+    },
+    {
+      "file": "018_literal_division_by_zero_expected_fail.sol",
+      "expect": "fail",
+      "notes": "division of a literal by a literal zero is a compile-time error, unlike the runtime Panic(0x12) for non-constant divisors"
+    },
+    {
+      "file": "019_mixed_signedness_expected_fail.sol",
+      "expect": "fail",
+      "notes": "no implicit common type between signed and unsigned integers, even at the same width"
+    },
+    {
+      "file": "020_narrowing_result_assignment_expected_fail.sol",
+      "expect": "fail",
+      "notes": "uint8 + uint16 has type uint16; assigning it to uint8 without an explicit cast is an implicit narrowing conversion"
+    },
+    {
+      "file": "021_signed_exponent_expected_fail.sol",
+      "expect": "fail",
+      "notes": "the exponent of ** must be unsigned, even when the base is unsigned"
+    }
+  ]
+}
