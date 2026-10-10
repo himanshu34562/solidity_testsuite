@@ -1,0 +1,135 @@
+{
+  "tests": [
+    {
+      "file": "001_ternary_basic_integer.sol",
+      "expect": "pass"
+    },
+    {
+      "file": "002_ternary_only_selected_branch_evaluated.sol",
+      "expect": "pass",
+      "notes": "only the selected branch runs, so only its side effects happen; a converter lowering ?: to a branch-free select would run both calls"
+    },
+    {
+      "file": "003_ternary_guards_division_by_zero.sol",
+      "expect": "pass",
+      "notes": "the division in the unselected branch never evaluates, so b == 0 ? 0 : a / b does not panic with 0x12"
+    },
+    {
+      "file": "004_ternary_guards_array_bounds.sol",
+      "expect": "pass",
+      "notes": "i < items.length ? items[i] : 0 never evaluates the out-of-bounds read (Panic 0x32) when the check fails"
+    },
+    {
+      "file": "005_ternary_mixed_width_branches_widen.sol",
+      "expect": "pass",
+      "notes": "the result type is the wider of the two branch types; the narrower branch is implicitly widened"
+    },
+    {
+      "file": "006_ternary_literal_branches.sol",
+      "expect": "pass",
+      "notes": "literal branches take the smallest unsigned type that holds each literal and the result is the wider of the two (255/256 gives uint16)"
+    },
+    {
+      "file": "007_ternary_nested_right_associative.sol",
+      "expect": "pass",
+      "notes": "?: is right-associative: a ? x : b ? y : z is a ? x : (b ? y : z)"
+    },
+    {
+      "file": "008_ternary_condition_is_comparison_or_logical.sol",
+      "expect": "pass",
+      "notes": "the condition can be any bool expression; comparisons and logical operators bind tighter than ?:"
+    },
+    {
+      "file": "009_ternary_as_function_argument_and_operand.sol",
+      "expect": "pass",
+      "notes": "a conditional expression can be a function argument or an operand of another operator when parenthesized"
+    },
+    {
+      "file": "010_ternary_bool_branches.sol",
+      "expect": "pass"
+    },
+    {
+      "file": "011_ternary_address_and_bytesN_branches.sol",
+      "expect": "pass"
+    },
+    {
+      "file": "012_ternary_enum_branches.sol",
+      "expect": "pass"
+    },
+    {
+      "file": "013_ternary_storage_value_branches.sol",
+      "expect": "pass",
+      "notes": "branches may read or modify storage; used as a statement, useHigh ? high++ : low++ increments exactly one counter"
+    },
+    {
+      "file": "014_ternary_memory_array_branches.sol",
+      "expect": "pass",
+      "notes": "memory array branches of the same type are allowed; the result is a reference to the chosen array, so writing through it modifies the original"
+    },
+    {
+      "file": "015_ternary_string_branches.sol",
+      "expect": "pass",
+      "notes": "string literal branches of different lengths give a common string memory result; string memory variables work as branches too"
+    },
+    {
+      "file": "016_ternary_signed_branches_abs_and_sign.sol",
+      "expect": "pass",
+      "notes": "compiles successfully; abs(type(int256).min) reverts with Panic(0x11) because the negation overflows"
+    },
+    {
+      "file": "017_ternary_explicit_cast_unifies_signedness.sol",
+      "expect": "pass",
+      "notes": "casting a branch gives both branches the same type; the fix for the rejected shapes in 021 and 024"
+    },
+    {
+      "file": "018_ternary_in_constant_initializer.sol",
+      "expect": "pass",
+      "notes": "a conditional expression is allowed in a constant's initializer when everything in it is constant"
+    },
+    {
+      "file": "019_ternary_unselected_branch_overflow_not_evaluated.sol",
+      "expect": "pass",
+      "notes": "compiles successfully; f(true, 255, 1) does not revert because a + b in the unselected branch is not evaluated, f(false, 255, 1) reverts with Panic(0x11)"
+    },
+    {
+      "file": "020_non_bool_condition_expected_fail.sol",
+      "expect": "fail",
+      "notes": "the condition must be bool; integers have no truthiness"
+    },
+    {
+      "file": "021_mismatched_branch_types_expected_fail.sol",
+      "expect": "fail",
+      "notes": "uint256 and int256 branches have no common type; fix by casting one branch (see 017)"
+    },
+    {
+      "file": "022_bool_and_integer_branches_expected_fail.sol",
+      "expect": "fail",
+      "notes": "a bool branch and an integer branch have no common type"
+    },
+    {
+      "file": "023_literal_branch_too_large_for_target_expected_fail.sol",
+      "expect": "fail",
+      "notes": "1 and 256 give result type uint16, so assigning to uint8 narrows even if the 256 branch is never taken (contrast with 006)"
+    },
+    {
+      "file": "024_negative_and_positive_literal_branches_expected_fail.sol",
+      "expect": "fail",
+      "notes": "the literal -1 is int8 and 1 is uint8, which have no common type even with an int256 target; fix by casting a branch (see 017)"
+    },
+    {
+      "file": "025_ternary_as_assignment_target_expected_fail.sol",
+      "expect": "fail",
+      "notes": "a conditional expression is a value, not a location, so it cannot be assigned to"
+    },
+    {
+      "file": "026_missing_else_branch_expected_fail.sol",
+      "expect": "fail",
+      "notes": "both branches are mandatory; there is no one-armed conditional expression"
+    },
+    {
+      "file": "027_ternary_uint8_and_int16_branches_expected_fail.sol",
+      "expect": "fail",
+      "notes": "a uint8 branch with an int16 branch is rejected by solc 0.8.36 even though uint8 assigns to int16 implicitly elsewhere; ?: does not apply signed/unsigned widening to its branches, only same-signedness widening (see 005)"
+    }
+  ]
+}
