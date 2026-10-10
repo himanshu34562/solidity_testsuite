@@ -1,0 +1,69 @@
+{
+  "tests": [
+    {
+      "file": "001_storage_array_param_internal_mutation.sol",
+      "expect": "pass",
+      "notes": "an internal function with a storage array parameter writes through to the caller's state variable; no copy is made"
+    },
+    {
+      "file": "002_storage_struct_param_field_mutation.sol",
+      "expect": "pass",
+      "notes": "a storage struct parameter is a reference; field writes modify the original struct in place"
+    },
+    {
+      "file": "003_storage_param_private_function.sol",
+      "expect": "pass",
+      "notes": "storage reference parameters are allowed on private functions as well as internal ones"
+    },
+    {
+      "file": "004_storage_fixed_array_param.sol",
+      "expect": "pass",
+      "notes": "a fixed-size storage array can be passed as a storage parameter"
+    },
+    {
+      "file": "005_two_storage_params_alias_same_array.sol",
+      "expect": "pass",
+      "notes": "passing the same state array as two storage parameters makes them alias the same storage; compile-level check only, the runtime aliasing result is not verified here"
+    },
+    {
+      "file": "006_storage_param_forwarded_to_another_internal_function.sol",
+      "expect": "pass",
+      "notes": "a storage parameter can be forwarded to another internal function; the reference is passed along, not copied"
+    },
+    {
+      "file": "007_storage_struct_array_element_as_param.sol",
+      "expect": "pass",
+      "notes": "a single element of a storage array of structs can be passed as a storage reference"
+    },
+    {
+      "file": "008_storage_param_delete_element.sol",
+      "expect": "pass",
+      "notes": "delete on an element reached through a storage parameter resets that element; deleting the reference itself is disallowed (see storage/010)"
+    },
+    {
+      "file": "009_storage_param_swap_elements.sol",
+      "expect": "pass",
+      "notes": "a helper with a storage array parameter can read and write several elements of the caller's state array"
+    },
+    {
+      "file": "010_storage_param_on_public_function_expected_fail.sol",
+      "expect": "fail",
+      "notes": "public functions cannot take storage parameters; a raw storage reference has no ABI representation"
+    },
+    {
+      "file": "011_storage_param_on_external_function_expected_fail.sol",
+      "expect": "fail",
+      "notes": "external functions cannot take storage parameters; same root cause as 010"
+    },
+    {
+      "file": "012_storage_param_missing_location_expected_fail.sol",
+      "expect": "fail",
+      "notes": "reference-type parameters must state their data location explicitly, even on internal functions"
+    },
+    {
+      "file": "013_memory_argument_to_storage_param_expected_fail.sol",
+      "expect": "fail",
+      "notes": "a memory array cannot be passed where a storage reference parameter is expected; parameter-passing counterpart of location_conversions/010"
+    }
+  ]
+}
