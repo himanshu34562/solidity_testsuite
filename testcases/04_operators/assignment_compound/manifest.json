@@ -1,0 +1,88 @@
+{
+  "tests": [
+    { "file": "001_add_assign_basic.sol", "expect": "pass" },
+    { "file": "002_sub_assign_basic.sol", "expect": "pass" },
+    { "file": "003_mul_assign_basic.sol", "expect": "pass" },
+    {
+      "file": "004_div_assign_unsigned_and_signed_truncation.sol",
+      "expect": "pass",
+      "notes": "/= follows plain division rules: unsigned discards the remainder, signed truncates toward zero"
+    },
+    {
+      "file": "005_mod_assign_basic.sol",
+      "expect": "pass",
+      "notes": "%= follows plain modulo rules; signed result takes the sign of the dividend"
+    },
+    { "file": "006_bitwise_compound_assign.sol", "expect": "pass" },
+    {
+      "file": "007_shift_compound_assign.sol",
+      "expect": "pass",
+      "notes": "<<= and >>= take an unsigned shift amount; >>= on a signed value is an arithmetic shift that keeps the sign"
+    },
+    {
+      "file": "008_compound_assign_on_state_variable.sol",
+      "expect": "pass",
+      "notes": "compound assignment on a storage variable is a read-modify-write of the slot"
+    },
+    {
+      "file": "009_compound_assign_on_mapping_element.sol",
+      "expect": "pass",
+      "notes": "a missing mapping key reads as the default (zero), so += on a fresh key works without initialization"
+    },
+    {
+      "file": "010_compound_assign_on_struct_field_and_array_element.sol",
+      "expect": "pass",
+      "notes": "compound assignment on a storage struct field and a storage array element; the index/field expression is evaluated once"
+    },
+    {
+      "file": "011_compound_assign_rhs_narrower_widens.sol",
+      "expect": "pass",
+      "notes": "a narrower right-hand side is implicitly widened to the target's type; the wider-RHS direction is rejected (see 016)"
+    },
+    {
+      "file": "012_compound_assign_overflow_checked.sol",
+      "expect": "pass",
+      "notes": "compiles successfully; += and *= overflow revert with Panic(0x11) in checked mode"
+    },
+    {
+      "file": "013_compound_assign_underflow_checked.sol",
+      "expect": "pass",
+      "notes": "compiles successfully; subAssign(0, 1) reverts with Panic(0x11)"
+    },
+    {
+      "file": "014_compound_assign_unchecked_wraps.sol",
+      "expect": "pass",
+      "notes": "inside unchecked, compound assignment wraps modulo 2^N instead of reverting"
+    },
+    {
+      "file": "015_div_mod_assign_by_zero_expected_fail_at_runtime.sol",
+      "expect": "pass",
+      "notes": "compiles successfully; /= and %= by a runtime zero revert with Panic(0x12)"
+    },
+    {
+      "file": "016_compound_assign_rhs_wider_expected_fail.sol",
+      "expect": "fail",
+      "notes": "a right-hand side wider than the target would require an implicit narrowing of the result, so it is rejected"
+    },
+    {
+      "file": "017_compound_assign_mixed_signedness_expected_fail.sol",
+      "expect": "fail",
+      "notes": "no common type between signed and unsigned integers for compound assignment"
+    },
+    {
+      "file": "018_compound_assign_on_bool_expected_fail.sol",
+      "expect": "fail",
+      "notes": "bool has no compound assignment operators because bitwise operators do not apply to bool"
+    },
+    {
+      "file": "019_pow_assign_does_not_exist_expected_fail.sol",
+      "expect": "fail",
+      "notes": "there is no **= operator; the compound set is +=, -=, *=, /=, %=, &=, |=, ^=, <<=, >>="
+    },
+    {
+      "file": "020_compound_assign_on_constant_expected_fail.sol",
+      "expect": "fail",
+      "notes": "a constant state variable cannot be assigned to, including by a compound assignment"
+    }
+  ]
+}
