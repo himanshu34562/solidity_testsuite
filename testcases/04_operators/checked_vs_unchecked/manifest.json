@@ -1,0 +1,99 @@
+{
+  "tests": [
+    {
+      "file": "001_addition_checked_vs_unchecked.sol",
+      "expect": "pass",
+      "notes": "compiles successfully; checkedAdd(200, 100) reverts with Panic(0x11) while uncheckedAdd(200, 100) == 44 (wraps at the operand width, 8 bits)"
+    },
+    {
+      "file": "002_subtraction_checked_vs_unchecked.sol",
+      "expect": "pass",
+      "notes": "compiles successfully; checkedSub(0, 1) reverts with Panic(0x11) while uncheckedSub(0, 1) wraps to type(uint256).max"
+    },
+    {
+      "file": "003_multiplication_checked_vs_unchecked.sol",
+      "expect": "pass",
+      "notes": "compiles successfully; checkedMul(16, 16) reverts with Panic(0x11) while the unchecked uint256 form returns the low 256 bits of the product"
+    },
+    {
+      "file": "004_exponentiation_checked_vs_unchecked.sol",
+      "expect": "pass",
+      "notes": "compiles successfully; checkedPow(2, 8) reverts with Panic(0x11) while uncheckedPow(2, 8) == 0 for uint8"
+    },
+    {
+      "file": "005_increment_decrement_checked_vs_unchecked.sol",
+      "expect": "pass",
+      "notes": "compiles successfully; ++ and -- (prefix and postfix) revert at the boundary in checked context and wrap in unchecked context"
+    },
+    {
+      "file": "006_signed_overflow_wraps_in_unchecked.sol",
+      "expect": "pass",
+      "notes": "compiles successfully; unchecked int8 add/sub/mul wrap in two's complement (127 + 1 == -128) while the checked versions revert with Panic(0x11)"
+    },
+    {
+      "file": "007_unary_negation_of_min_value.sol",
+      "expect": "pass",
+      "notes": "compiles successfully; checkedNeg(-128) reverts with Panic(0x11) while uncheckedNeg(-128) == -128"
+    },
+    {
+      "file": "008_int_min_divided_by_negative_one.sol",
+      "expect": "pass",
+      "notes": "compiles successfully; checkedDiv(-128, -1) reverts with Panic(0x11) while uncheckedDiv(-128, -1) returns type(int8).min"
+    },
+    {
+      "file": "009_compound_assignments_checked_vs_unchecked.sol",
+      "expect": "pass",
+      "notes": "compiles successfully; compound assignment operators obey the surrounding checked or unchecked context"
+    },
+    {
+      "file": "010_unchecked_does_not_affect_called_functions.sol",
+      "expect": "pass",
+      "notes": "compiles successfully; unchecked applies only to arithmetic written inside the block: a checked callee still reverts and an unchecked callee still wraps from checked code"
+    },
+    {
+      "file": "011_checked_resumes_after_unchecked_block.sol",
+      "expect": "pass",
+      "notes": "compiles successfully; arithmetic after the closing brace of an unchecked block is checked again in the same function"
+    },
+    {
+      "file": "012_unchecked_intermediate_result_wraps.sol",
+      "expect": "pass",
+      "notes": "compiles successfully; inside unchecked even intermediate results wrap so (a + b) - b recovers a; the checked version reverts at the intermediate overflow"
+    },
+    {
+      "file": "013_unchecked_loop_counter_idiom.sol",
+      "expect": "pass",
+      "notes": "unchecked ++i as the loop increment while the accumulated total stays checked; sum(5) == 10"
+    },
+    {
+      "file": "014_unchecked_division_by_zero_still_reverts_expected_fail_at_runtime.sol",
+      "expect": "pass",
+      "notes": "compiles successfully; / and % by a runtime zero still revert with Panic(0x12) inside unchecked, because that check cannot be disabled"
+    },
+    {
+      "file": "015_unchecked_block_with_local_variable.sol",
+      "expect": "pass",
+      "notes": "variables can be declared and used inside an unchecked block; results are carried out through an outer variable"
+    },
+    {
+      "file": "016_unchecked_local_variable_scope_expected_fail.sol",
+      "expect": "fail",
+      "notes": "a variable declared inside an unchecked block is not visible after the closing brace"
+    },
+    {
+      "file": "017_unchecked_without_braces_expected_fail.sol",
+      "expect": "fail",
+      "notes": "unchecked is only valid as a block statement; it cannot prefix a single statement"
+    },
+    {
+      "file": "018_unchecked_literal_overflow_expected_fail.sol",
+      "expect": "fail",
+      "notes": "unchecked affects runtime arithmetic only; 255 + 1 is folded to exactly 256 at compile time and does not fit uint8 regardless of unchecked"
+    },
+    {
+      "file": "019_nested_unchecked_blocks_expected_fail.sol",
+      "expect": "fail",
+      "notes": "unchecked blocks cannot be nested"
+    }
+  ]
+}
